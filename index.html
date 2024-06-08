@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Time</title>
+    <script>
+        async function fetchTime() {
+            const response = await fetch('time.json');
+            const data = await response.json();
+            document.getElementById('time').textContent = data.currentTime;
+        }
+
+        async function updateTime() {
+            while (true) {
+                await fetchTime();
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', updateTime);
+    </script>
+</head>
+<body>
+    <h1>Current Time: <span id="time"></span></h1>
+</body>
+</html>
